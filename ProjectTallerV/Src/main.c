@@ -18,9 +18,20 @@
 
 #include <stdint.h>
 
-uint8_t a = 0;
-uint16_t b = 0;
-uint32_t c = 0;
+/* VARIABLES */
+
+uint8_t dummy_8bit = 0;
+uint16_t dummy_16bit = 0;
+uint32_t dummy_32bit = 0;
+
+uint16_t dummy_16bit_dec = 0;
+uint16_t dummy_16bit_bin = 0;
+uint16_t dummy_16bit_hex = 0;
+
+uint8_t overflow_demo = 0;
+
+/* VARIABLES */
+
 
 
 #if !defined(__SOFT_FP__) && defined(__ARM_FP)
@@ -29,6 +40,33 @@ uint32_t c = 0;
 
 int main(void)
 {
-    /* Loop forever */
+
+	dummy_8bit = 123;
+	dummy_16bit = 4986;
+	dummy_32bit = 12345678;
+
+	dummy_16bit_dec = 32;
+	dummy_16bit_bin = 0b100000;
+	dummy_16bit_hex = 0x20;
+
+	/* reescribir una variable*/
+	dummy_16bit_hex = dummy_16bit_hex << 3;
+	dummy_16bit_hex = dummy_16bit_hex >> 3;
+
+	dummy_8bit = 255;
+	dummy_16bit = 255;
+	dummy_32bit = 255;
+
+	/* Prueba de saturar una varibale de 8 bits */
+	overflow_demo = dummy_8bit + 1;
+	overflow_demo = overflow_demo + 1;
+
+	overflow_demo = 735;
+	overflow_demo = 0;
+
+	for(uint16_t counter = 0; counter < 735; counter++){
+		overflow_demo++;
+	}
+
 	for(;;);
 }
